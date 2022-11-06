@@ -1,0 +1,3 @@
+[submodule "src/RTIMULib"]
+	path = src/RTIMULib
+	url = https://github.com/RPi-Distro/RTIMULib
