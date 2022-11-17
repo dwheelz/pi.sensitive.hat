@@ -24,5 +24,6 @@ setup(
     python_requires='>=3.9',
     packages=find_packages(),
     install_requires=read("requirements.txt"),
-    entry_points=dict(console_scripts=['temps = src.sense_app.main:temps'])
+    entry_points=dict(console_scripts=['temps = src.sense_app.main:temps']),
+    include_package_data=True
 )

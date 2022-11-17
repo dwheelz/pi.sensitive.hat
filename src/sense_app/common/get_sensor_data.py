@@ -4,6 +4,8 @@ import json
 from urllib.request import Request, urlopen
 import functools
 import time
+from pathlib import Path
+import os
 
 def _retry():
     """A retry decorator for request calls"""
@@ -22,7 +24,7 @@ def _retry():
 
     return decorator
 
-@_retry
+@_retry()
 def _do_url_req(url: str) -> dict:
     """Returns a dict of data from the remote sensor"""
     req = Request(
@@ -36,7 +38,8 @@ def _do_url_req(url: str) -> dict:
 
 def get_sensor() -> str:
     """Gets the endpoint info from the config.json file"""
-    with open("config.json", "r", encoding="UTF-8") as conf:
+    conf_file = Path(os.path.dirname(os.path.abspath(__file__)), "config.json")
+    with open(conf_file, "r", encoding="UTF-8") as conf:
         endpoint_data = json.load(conf)
 
     resp_data = _do_url_req(endpoint_data["endpoint"])
