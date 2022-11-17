@@ -10,6 +10,7 @@ class RandPatternGen:
     RED: list = [[100, 0, 0], [180, 40, 0]]
     BLUE: list = [[0, 0, 100], [0, 80, 180]]
     GREEN: list = [[0, 100, 0], [40, 180, 40]]
+    DEATH: list = [[00, 200, 00], [0, 240, 0]]  # Death is now a colour, and its very red...
 
     def gen(self, colour: list) -> list:
         """Generates a random list of 64 nested RGB values within the specified bounds of
