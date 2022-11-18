@@ -16,7 +16,7 @@ def _retry():
                 try:
                     return func(*args, **kwargs)
                 except:
-                    time.sleep(5)
+                    time.sleep(60)
 
             raise Exception("Retry limit hit when attempting request(s)")
 
