@@ -7,10 +7,10 @@ class RandPatternGen:
     """Generates Random patterns within specified broad predefined colours"""
 
     ORANGE: list = [[100, 50, 0], [180, 100, 0]]
-    RED: list = [[100, 0, 0], [180, 40, 0]]
+    RED: list = [[90, 0, 0], [180, 40, 30]]
     BLUE: list = [[0, 0, 100], [0, 80, 180]]
-    GREEN: list = [[0, 100, 0], [40, 180, 40]]
-    DEATH: list = [[00, 200, 00], [0, 240, 0]]  # Death is now a colour, and its very red...
+    GREEN: list = [[10, 100, 10], [60, 180, 60]]
+    DEATH: list = [[190, 0, 0], [235, 235, 235]]  # Death is now a colour, and its surprisingly pretty...
 
     def gen(self, colour: list) -> list:
         """Generates a random list of 64 nested RGB values within the specified bounds of
