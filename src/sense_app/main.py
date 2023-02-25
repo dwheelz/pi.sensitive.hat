@@ -26,16 +26,17 @@ def temps():
     hat = SenseHat()
 
     while True: # We never stop this train
-        sensor_temp = get_sensor_data.get_sensor_temp(temp_sensor)
-        print(sensor_temp)
-        for _key, _val in temp_boundaries.items():
-            if _val[0] <= int(sensor_temp) < _val[1]:
-                screen_colour = _key
-                break
-        else:
-            raise Exception(
-                f"Temp value: {sensor_temp} is not in any boundary: {temp_boundaries.keys()}"
-            )
+        screen_colour = "DEATH"  # Assume death
+        try:
+            sensor_temp = get_sensor_data.get_sensor_temp(temp_sensor)
+            for _key, _val in temp_boundaries.items():
+                if _val[0] <= int(sensor_temp) < _val[1]:
+                    screen_colour = _key
+                    break
+            else:
+                print(f"Temp value: {sensor_temp} is not in any boundary: {temp_boundaries.keys()}. Setting to death!")
+        except get_sensor_data.SensorConnectionFailure:
+            print(f"Failed to connect to sensor: {temp_sensor} (with retires).")
 
         for _ in range(60):
             hat.set_pixels(pattern_generator.gen(getattr(pattern_generator, screen_colour)))

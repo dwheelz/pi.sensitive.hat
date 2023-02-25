@@ -7,18 +7,24 @@ import time
 from pathlib import Path
 import os
 
+class SensorConnectionFailure(Exception):
+    """Thrown when we can't seemingly communicate with the temp sensor"""
+
 def _retry():
     """A retry decorator for request calls"""
     def decorator(func):
         @functools.wraps(func)
         def wrapper(*args, **kwargs):
-            for _ in range(3):
+            raised_exc = None
+            for _ in range(5):  # NOTE: Trying out 5 attempts in the real world
                 try:
                     return func(*args, **kwargs)
-                except:
+                except Exception as exc:
+                    raised_exc = repr(exc)
+                    print(raised_exc)
                     time.sleep(60)
 
-            raise Exception("Retry limit hit when attempting request(s)")
+            raise SensorConnectionFailure(f"Retry limit hit when attempting request(s). Exception: {raised_exc}")
 
         return wrapper
 
