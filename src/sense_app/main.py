@@ -10,24 +10,25 @@ def temps():
     from common import get_sensor_data, pattern_gen
 
     temp_boundaries = {
-        "DEATH": [35, 50],
-        "RED": [30, 35],  # we should never get above here...
+        "DEATH": [38, 99],
+        "RED": [30, 38],  # we should never get above here...
         "ORANGE": [26, 30],
         "GREEN": [19, 26],
         "BLUE": [5, 19]
     }
 
-    # Get sensor and spawn pattern generator object, SenseHat object
-    temp_sensor = get_sensor_data.get_sensor()
-    if not temp_sensor:
-        raise Exception("Unable to fetch sensor data")
-
     pattern_generator = pattern_gen.RandPatternGen()
     hat = SenseHat()
 
+    temp_sensor = None
     while True: # We never stop this train
         screen_colour = "DEATH"  # Assume death
+
         try:
+            if not temp_sensor:
+                temp_sensor = get_sensor_data.get_sensor()
+                print(f"temp sensor: {temp_sensor}")
+
             sensor_temp = get_sensor_data.get_sensor_temp(temp_sensor)
             for _key, _val in temp_boundaries.items():
                 if _val[0] <= int(sensor_temp) < _val[1]:
@@ -35,9 +36,11 @@ def temps():
                     break
             else:
                 print(f"Temp value: {sensor_temp} is not in any boundary: {temp_boundaries.keys()}. Setting to death!")
-        except get_sensor_data.SensorConnectionFailure:
-            print(f"Failed to connect to sensor: {temp_sensor} (with retires).")
 
-        for _ in range(60):
-            hat.set_pixels(pattern_generator.gen(getattr(pattern_generator, screen_colour)))
-            time.sleep(1)
+            for _ in range(60):
+                hat.set_pixels(pattern_generator.gen(getattr(pattern_generator, screen_colour)))
+                time.sleep(1)
+
+        except Exception as exc:
+            # Making this a broad except as I have noticed the screen hanging on a pattern.
+            print(f"Execption thrown : {repr(exc)}.")
