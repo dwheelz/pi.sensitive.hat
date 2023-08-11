@@ -6,6 +6,7 @@ import functools
 import time
 from pathlib import Path
 import os
+from typing import Union
 
 class SensorConnectionFailure(Exception):
     """Thrown when we can't seemingly communicate with the temp sensor"""
@@ -19,12 +20,14 @@ def _retry():
             for _ in range(5):  # NOTE: Trying out 5 attempts in the real world
                 try:
                     return func(*args, **kwargs)
-                except Exception as exc:
+                except Exception as exc:  # pylint: disable=broad-exception-caught
                     raised_exc = repr(exc)
                     print(raised_exc)
                     time.sleep(60)
 
-            raise SensorConnectionFailure(f"Retry limit hit when attempting request(s). Exception: {raised_exc}")
+            raise SensorConnectionFailure(
+                f"Retry limit hit when attempting request(s). Exception: {raised_exc}"
+            )
 
         return wrapper
 
@@ -55,6 +58,6 @@ def get_sensor_data(sensor_url: str) -> dict:
     """Returns all data from the sensor"""
     return _do_url_req(sensor_url)
 
-def get_sensor_temp(sensor_url: str) -> float:
-    """"""
+def get_sensor_temp(sensor_url: str) -> Union[float, None]:
+    """Returns the temp from the sensor"""
     return get_sensor_data(sensor_url).get("temp", None)

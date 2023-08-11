@@ -1,15 +1,18 @@
+"""Sets up RTIMULib and sense hat, invoke when in a venv to save yourself sadness"""
+
 import os
 from pathlib import Path
-from setuptools import setup, find_packages
 import subprocess
 
+from setuptools import setup, find_packages
 
 
-def read(fname):
-    return open(os.path.join(os.path.dirname(__file__), fname)).read()
+def read(fname: str):
+    """Reads a file"""
+    return open(os.path.join(os.path.dirname(__file__), fname), encoding="UTF-8").read()
 
-# Config RTIMULib (its a right pain)
 def _setup_rtimulib():
+    """Config RTIMULib (its a right pain)"""
     rtimlib_cwd = Path("src", "RTIMULib", "Linux", "python").absolute()
     subprocess.check_call(["python", "setup.py", "build"], cwd=rtimlib_cwd)
     subprocess.check_call(["python", "setup.py", "install"], cwd=rtimlib_cwd)
@@ -24,6 +27,6 @@ setup(
     python_requires='>=3.9',
     packages=find_packages(),
     install_requires=read("requirements.txt"),
-    entry_points=dict(console_scripts=['temps = src.sense_app.main:temps']),
+    entry_points={"console_scripts": ['temps = src.sense_app.main:temps']},
     include_package_data=True
 )
