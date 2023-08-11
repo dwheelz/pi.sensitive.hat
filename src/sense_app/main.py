@@ -5,6 +5,7 @@ def temps():
     depending on the temperature values fetched from a remote temp sensor
     (specified in common/config.json).
     """
+    # pylint: disable=import-error,import-outside-toplevel
     import time
     from sense_hat import SenseHat
     from common import get_sensor_data, pattern_gen
@@ -35,7 +36,10 @@ def temps():
                     screen_colour = _key
                     break
             else:
-                print(f"Temp value: {sensor_temp} is not in any boundary: {temp_boundaries.keys()}. Setting to death!")
+                print(
+                    f"Temp value: {sensor_temp} is not in any boundary: {temp_boundaries.keys()}. "
+                    "Setting to death!"
+                )
 
         except get_sensor_data.SensorConnectionFailure:
             print(f"Failed to connect to sensor: {temp_sensor} (with retires).")
@@ -44,6 +48,6 @@ def temps():
             for _ in range(60):
                 hat.set_pixels(pattern_generator.gen(getattr(pattern_generator, screen_colour)))
                 time.sleep(1)
-        except Exception as exc:
+        except Exception as exc:  # pylint: disable=broad-exception-caught
             # Making this a broad except as I have noticed the screen hanging on a pattern.
             print(f"Execption thrown setting pixels: {repr(exc)}.")
