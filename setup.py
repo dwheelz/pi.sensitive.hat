@@ -1,3 +1,5 @@
+"""Sets up RTIMULib and sense hat, invoke when in a venv to save yourself sadness"""
+
 import os
 from pathlib import Path
 import subprocess
