@@ -19,10 +19,13 @@ def temps():
     }
 
     pattern_generator = pattern_gen.RandPatternGen()
-    hat = SenseHat()
 
     temp_sensor = None
     while True: # We never stop this train
+        # Moved the hat object into here so we regularly re-create it.
+        # Hoping this will help the stability of long running instances of the sense hat flashy
+        # flashy.
+        hat = SenseHat()
         screen_colour = "DEATH"  # Assume death
 
         try:
