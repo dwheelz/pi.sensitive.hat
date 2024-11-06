@@ -3,10 +3,11 @@
 from pathlib import Path
 from json import loads
 
-from sense_hat import SenseHat
+# only importable on a RPi
+from sense_hat import SenseHat  # pylint: disable=import-error
 
 
-CLEAR = [[0,0,0] for _ in range(64)]
+CLEAR = [[0, 0, 0] for _ in range(64)]
 
 
 class SetPattern:
