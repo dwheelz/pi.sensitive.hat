@@ -1,1 +1,2 @@
 include src/sense_app/common/config.json
+include src/sense_app/common/example_patterns/*.json

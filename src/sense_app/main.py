@@ -18,7 +18,7 @@ def temps():
         "BLUE": [5, 19]
     }
 
-    pattern_generator = pattern_gen.RandPatternGen()
+    pattern_generator = pattern_gen.ConstrainedRandPatternGen()
 
     temp_sensor = None
     while True: # We never stop this train

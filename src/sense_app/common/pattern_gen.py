@@ -3,7 +3,8 @@
 from random import randint
 
 
-class RandPatternGen:  # pylint: disable=too-few-public-methods
+# pylint: disable=too-few-public-methods
+class ConstrainedRandPatternGen:
     """Generates Random patterns within specified broad predefined colours"""
 
     ORANGE: list = [[100, 50, 0], [180, 100, 0]]
@@ -13,9 +14,11 @@ class RandPatternGen:  # pylint: disable=too-few-public-methods
     # Death is now a colour, and its surprisingly pretty...
     DEATH: list = [[190, 0, 0], [235, 235, 235]]
 
-    def gen(self, colour: list) -> list:
+    @staticmethod
+    def gen(colour: list) -> list:
         """Generates a random list of 64 nested RGB values within the specified bounds of
-        the provided colour (i.e values between self.ORANGE[0], self.ORANGE[1]).
+        the provided colour (i.e values between ConstrainedRandPatternGen.ORANGE[0] and
+        ConstrainedRandPatternGen.ORANGE[1]).
         """
         generated_list = []
         for _ in range(64):
