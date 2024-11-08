@@ -4,7 +4,7 @@ import time
 import os
 
 from sense_hat import SenseHat  # pylint: disable=import-error
-from sense_app.common import get_sensor_data, pattern_gen, set_pixels
+from common import get_sensor_data, pattern_gen, set_pixels  # pylint: disable=import-error
 
 
 def temps():
