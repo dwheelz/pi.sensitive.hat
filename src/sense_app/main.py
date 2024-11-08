@@ -63,4 +63,4 @@ def creeper_face():
     file_path = os.path.join(
         os.path.dirname(os.path.abspath(__file__)), "common", "example_patterns", "creeper.json"
     )
-    set_pixels.SetPatternFromJsonFile(file_path)
+    set_pixels.SetPatternFromJsonFile(file_path).set()
