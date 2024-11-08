@@ -32,6 +32,7 @@ setup(
         "console_scripts": [
             'temps = src.sense_app.main:temps',
             'creeper = src.sense_app.main:creeper_face'
+            'cleardisplay = src.sense_app.main:clear_display'
         ]
     },
     include_package_data=True
