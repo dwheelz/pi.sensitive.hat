@@ -27,6 +27,11 @@ setup(
     python_requires='>=3.9',
     packages=find_packages(),
     install_requires=read("requirements.txt"),
-    entry_points={"console_scripts": ['temps = src.sense_app.main:temps']},
+    entry_points={
+        "console_scripts": [
+            'temps = src.sense_app.main:temps',
+            'creeper = src.sense_app.main:creeper_face'
+        ]
+    },
     include_package_data=True
 )

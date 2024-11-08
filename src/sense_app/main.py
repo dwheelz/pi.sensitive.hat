@@ -1,15 +1,17 @@
 """Main entry point"""
 
+import time
+import os
+
+from sense_hat import SenseHat  # pylint: disable=import-error
+from common import get_sensor_data, pattern_gen, set_pixels
+
+
 def temps():
     """Entry point for displaying a nice coloured graphic on the sense screen,
     depending on the temperature values fetched from a remote temp sensor
     (specified in common/config.json).
     """
-    # pylint: disable=import-error,import-outside-toplevel
-    import time
-    from sense_hat import SenseHat
-    from common import get_sensor_data, pattern_gen
-
     temp_boundaries = {
         "DEATH": [38, 99],
         "RED": [30, 38],  # we should never get above here...
@@ -54,3 +56,11 @@ def temps():
         except Exception as exc:  # pylint: disable=broad-exception-caught
             # Making this a broad except as I have noticed the screen hanging on a pattern.
             print(f"Execption thrown setting pixels: {repr(exc)}.")
+
+
+def creeper_face():
+    """Sets a creeper face on the display"""
+    file_path = os.path.join(
+        os.path.dirname(os.path.abspath(__file__)), "common", "example_patterns", "creeper.json"
+    )
+    set_pixels.SetPatternFromJsonFile(file_path)
