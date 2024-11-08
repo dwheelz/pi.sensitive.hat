@@ -64,3 +64,8 @@ def creeper_face():
         os.path.dirname(os.path.abspath(__file__)), "common", "example_patterns", "creeper.json"
     )
     set_pixels.SetPatternFromJsonFile(file_path).set()
+
+
+def clear_display():
+    """Clears the display"""
+    set_pixels.SetPattern().clear()

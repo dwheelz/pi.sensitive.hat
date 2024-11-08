@@ -2,6 +2,7 @@
 
 from pathlib import Path
 from json import loads
+from typing import Union
 
 # only importable on a RPi
 from sense_hat import SenseHat  # pylint: disable=import-error
@@ -14,7 +15,7 @@ CLEAR = [[0, 0, 0] for _ in range(64)]
 class SetPattern:
     """Base Pattern class"""
 
-    def __init__(self, pattern: list) -> None:
+    def __init__(self, pattern: Union[list, None] = None) -> None:
         """init"""
         self.pattern = pattern
         self.hat = SenseHat()
