@@ -20,7 +20,7 @@ def _setup_rtimulib():
 _setup_rtimulib()
 
 setup(
-    name="pi_sensitive_hat",
+    name="pi-sensitive-hat",
     version="0.0.1",
     author="Jumbo Bumbo",
     long_description=read('README.md'),
