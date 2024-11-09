@@ -26,7 +26,8 @@ setup(
     long_description=read('README.md'),
     license="BSD",
     python_requires='>=3.9',
-    packages=find_packages(),
+    packages=find_packages(where='src'),
+    package_dir={'': 'src'},
     install_requires=read("requirements.txt"),
     entry_points={
         "console_scripts": [
