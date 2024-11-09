@@ -27,9 +27,9 @@ class RawSenseHat:
         "clears the display"
         self.hat.clear()
 
-    def set(self, rgb_list: list[list]):
+    def set(self):
         """Sets the display"""
-        self.hat.set_pixels(rgb_list)
+        raise NotImplementedError("please implement me")
 
 
 # pylint: disable=too-few-public-methods
