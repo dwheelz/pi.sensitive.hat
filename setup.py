@@ -20,13 +20,24 @@ def _setup_rtimulib():
 _setup_rtimulib()
 
 setup(
-    name="pi.sensitive.hat",
+    name="sense_app",
+    version="0.0.1",
     author="Jumbo Bumbo",
     long_description=read('README.md'),
     license="BSD",
     python_requires='>=3.9',
-    packages=find_packages(),
+    packages=find_packages(where='src'),
+    package_dir={'': 'src'},
     install_requires=read("requirements.txt"),
-    entry_points={"console_scripts": ['temps = src.sense_app.main:temps']},
+    entry_points={
+        "console_scripts": [
+            'temps = sense_app.main:temps',
+            'creeper = sense_app.main:creeper_face',
+            'cleardisplay = sense_app.main:clear_display',
+            'randompattern = sense_app.main:gen_random_pattern',
+            'lowlight = sense_app.main:enable_low_light',
+            'normallight = sense_app.main:disable_low_light',
+        ]
+    },
     include_package_data=True
 )
