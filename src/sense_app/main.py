@@ -51,7 +51,9 @@ def temps():
 
         try:
             for _ in range(60):
-                hat.set_pixels(pattern_generator.gen(getattr(pattern_generator, screen_colour)))
+                hat.set_pixels(
+                    pattern_generator.gen_single_colour(getattr(pattern_generator, screen_colour))
+                )
                 time.sleep(1)
         except Exception as exc:  # pylint: disable=broad-exception-caught
             # Making this a broad except as I have noticed the screen hanging on a pattern.
