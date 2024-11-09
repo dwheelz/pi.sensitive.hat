@@ -3,6 +3,7 @@
 from pathlib import Path
 from json import loads
 from typing import Union
+from asyncio import Event, sleep
 
 # only importable on a RPi
 from sense_hat import SenseHat  # pylint: disable=import-error
@@ -31,6 +32,18 @@ class RawSenseHat:
         """Sets the display"""
         raise NotImplementedError("please implement me")
 
+    async def rotater(self, async_event: Event, wait_time: int = 1) -> None:
+        """rotates the display until the async event is set"""
+        while not async_event.is_set():
+            for r in [0, 90, 180, 270]:
+                # A double check here so we don't continue the full loop if the async event has
+                # been set. Its a little whiffy, but I think its still the cleanest option.
+                if not async_event.is_set():
+                    self.hat.set_rotation(r, redraw=True)
+                    await sleep(wait_time)
+                else:
+                    break
+        self.hat.set_rotation(0, redraw=True)  # Set back to default
 
 # pylint: disable=too-few-public-methods
 class SetPattern(RawSenseHat):

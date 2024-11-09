@@ -2,9 +2,17 @@
 
 import time
 import os
+from asyncio import Event, run_coroutine_threadsafe, new_event_loop
+from threading import Thread
 
 from sense_hat import SenseHat  # pylint: disable=import-error
 from common import get_sensor_data, pattern_gen, set_pixels  # pylint: disable=import-error
+
+
+# pylint: disable=global-statement
+ASYNC_EVENT = None
+CURRENT_LOOP = None
+RUNNING_THREAD = None
 
 
 def temps():
@@ -87,3 +95,34 @@ def enable_low_light():
 def disable_low_light():
     """Sets the display back to normal lighting"""
     set_pixels.RawSenseHat().disable_low_light()
+
+
+def stop_rotation():
+    """Stops rotating the display"""
+    global ASYNC_EVENT
+    global CURRENT_LOOP
+    global RUNNING_THREAD
+    if isinstance(ASYNC_EVENT, Event):
+        ASYNC_EVENT.set()
+        print("Waiting 5 seconds for clean up")
+        time.sleep(5)
+    ASYNC_EVENT = None
+    if CURRENT_LOOP and RUNNING_THREAD:
+        CURRENT_LOOP.call_soon_threadsafe(CURRENT_LOOP.stop)
+        RUNNING_THREAD.join()
+        CURRENT_LOOP = None
+        RUNNING_THREAD = None
+
+
+def rotate_display():
+    """Rotates the display"""
+    stop_rotation()  # Just in case we already have something rotating the display
+    global ASYNC_EVENT
+    global CURRENT_LOOP
+    global RUNNING_THREAD
+    ASYNC_EVENT = Event()
+    display = set_pixels.RawSenseHat()
+    CURRENT_LOOP = new_event_loop()
+    RUNNING_THREAD = Thread(target=CURRENT_LOOP.run_forever)
+    RUNNING_THREAD.start()
+    run_coroutine_threadsafe(display.rotater(ASYNC_EVENT), CURRENT_LOOP)
