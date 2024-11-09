@@ -26,16 +26,15 @@ setup(
     long_description=read('README.md'),
     license="BSD",
     python_requires='>=3.9',
-    packages=find_packages(),
-    # packages=find_packages(where='src'),
-    # package_dir={'': 'src'},
+    packages=find_packages(where='src'),
+    package_dir={'': 'src'},
     install_requires=read("requirements.txt"),
     entry_points={
         "console_scripts": [
-            'temps = src.sense_app.main:temps',
-            'creeper = src.sense_app.main:creeper_face',
-            'cleardisplay = src.sense_app.main:clear_display',
-            'randompattern = src.sense_app.main:gen_random_pattern'
+            'temps = sense_app.main:temps',
+            'creeper = sense_app.main:creeper_face',
+            'cleardisplay = sense_app.main:clear_display',
+            'randompattern = sense_app.main:gen_random_pattern'
         ]
     },
     include_package_data=True
