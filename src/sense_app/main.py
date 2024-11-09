@@ -76,4 +76,14 @@ def gen_random_pattern():
 
 def clear_display():
     """Clears the display"""
-    set_pixels.SetPattern().clear()
+    set_pixels.RawSenseHat().clear()
+
+
+def enable_low_light():
+    """Sets the display to low light mode"""
+    set_pixels.RawSenseHat().enable_low_light()
+
+
+def disable_low_light():
+    """Sets the display back to normal lighting"""
+    set_pixels.RawSenseHat().disable_low_light()

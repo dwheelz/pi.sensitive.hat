@@ -34,7 +34,9 @@ setup(
             'temps = sense_app.main:temps',
             'creeper = sense_app.main:creeper_face',
             'cleardisplay = sense_app.main:clear_display',
-            'randompattern = sense_app.main:gen_random_pattern'
+            'randompattern = sense_app.main:gen_random_pattern',
+            'lowlight = sense_app.main:enable_low_light',
+            'normallight = sense_app.main:disable_low_light',
         ]
     },
     include_package_data=True
