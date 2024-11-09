@@ -68,7 +68,7 @@ def creeper_face():
     set_pixels.SetPatternFromJsonFile(file_path).set()
 
 
-def rand_pattern():
+def gen_random_pattern():
     """Sets a random pattern on the display"""
     pattern_generator = pattern_gen.ConstrainedRandPatternGen()
     set_pixels.SetPattern(pattern_generator.gen()).set()

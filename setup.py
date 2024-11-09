@@ -34,7 +34,7 @@ setup(
             'temps = src.sense_app.main:temps',
             'creeper = src.sense_app.main:creeper_face',
             'cleardisplay = src.sense_app.main:clear_display',
-            'randompattern = src.sense_app.main:rand_pattern'
+            'randompattern = src.sense_app.main:gen_random_pattern'
         ]
     },
     include_package_data=True
